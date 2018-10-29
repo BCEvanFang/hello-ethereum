@@ -23,8 +23,13 @@ truffle compile
 
 啟動測試網路
 ```sh
+# 使用ganache
 ganache-cli --seed apple banana cherry
+
+# 使用truffle develop
+truffle develop
 ```
+>以上兩者擇其一即可
 
 Deploy
 ```sh
@@ -33,6 +38,9 @@ touch migrations/2_deploy_contracts.js
 
 # 執行部署
 truffle migrate
+
+# 若要重新部署，可使用reset指令
+truffle migrate --reset
 ```
 
 與測試區塊鏈上的合約互動
@@ -48,4 +56,7 @@ HelloWorld.deployed().then(instance => contract = instance)
 
 # 呼叫合約上的sayHello方法(使用call來呼叫read only資料，就不需要耗費gas)
 contract.sayHello.call()
+
+# 呼叫echo方法
+contract.echo("hello ethereum")
 ```
