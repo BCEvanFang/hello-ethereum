@@ -1,0 +1,8 @@
+{
+  "name": "hello",
+  "version": "1.0.0",
+  "license": "ISC",
+  "dependencies": {
+    "zeppelin-solidity": "^1.12.0"
+  }
+}

@@ -103,3 +103,75 @@ contract.balanceOf(web3.eth.coinbase)
 // 再次確認accounts[1]的balance
 contract.balanceOf(web3.eth.accounts[1])
 ```
+
+## 建立符合ERC20的代幣
+
+使用`OpenZeppelin`套件建立符合標準的代幣
+
+```sh
+touch package.json
+```
+
+```json
+{
+  "name": "hello",
+  "version": "1.0.0",
+  "license": "ISC"
+}
+```
+
+安裝`zeppelin-solidity`
+```sh
+npm install zeppelin-solidity --save
+```
+
+建立HelloToken合約
+```sh
+# 使用truffle create contract指令建立合約
+truffle create contract HelloToken
+```
+
+部署
+```sh
+# 建立部署腳本
+touch migrations/4_deploy_hellotoken.js
+
+truffle compile
+
+truffle migrate --reset
+
+# 啟動truffle console
+truffle console
+```
+
+測試
+```js
+let contract
+
+// 取得合約
+HelloToken.deployed().then(instance => contract = instance)
+
+// 合約地址
+contract.address
+
+// coinbase(account0)餘額
+contract.balanceOf(web3.eth.coinbase)
+
+// account1餘額
+contract.balanceOf(web3.eth.accounts[1])
+
+// coinbase轉帳給account1
+contract.transfer(web3.eth.accounts[1], 240)
+
+// 確認account0餘額
+contract.balanceOf(web3.eth.accounts[0])
+
+// 確認account1餘額
+contract.balanceOf(web3.eth.accounts[1])
+```
+
+因為是標準代幣，所以也可以使用`MetaMask`確認Token
+
+1. 連結測試鏈: `localhost:8545`
+2. Import account: `private key`
+3. Add token: `token contract address`
