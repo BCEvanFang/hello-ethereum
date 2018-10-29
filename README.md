@@ -60,3 +60,46 @@ contract.sayHello.call()
 # 呼叫echo方法
 contract.echo("hello ethereum")
 ```
+
+## 建立代幣
+
+建立`SimpleToken`所需的合約以及部署腳本
+```sh
+# 建立SimpleToken合約
+touch contracts/SimpleToken.sol
+
+# 建立SimpleToken部署腳本
+touch migrations/3_deploy_simple_token.js
+
+# Compile
+truffle compile
+
+# Deploy
+truffle migrate
+
+# 啟動truffle console
+truffle console
+```
+
+測試：從合約轉帳代幣到使用者帳戶
+```js
+let contract
+
+// 取得SimpleToken合約
+SimpleToken.deployed().then(instance => contract = instance)
+
+// 合約地址的balance
+contract.balanceOf(web3.eth.coinbase)
+
+// accounts[1]的balance
+contract.balanceOf(web3.eth.accounts[1])
+
+// 從合約地址轉帳120個代幣給accounts[1]
+contract.transfer(web3.eth.accounts[1], 120)
+
+// 再次確認合約地址的balance
+contract.balanceOf(web3.eth.coinbase)
+
+// 再次確認accounts[1]的balance
+contract.balanceOf(web3.eth.accounts[1])
+```
