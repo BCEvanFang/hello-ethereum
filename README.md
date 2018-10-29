@@ -88,7 +88,7 @@ let contract
 // 取得SimpleToken合約
 SimpleToken.deployed().then(instance => contract = instance)
 
-// 合約地址的balance
+// coinbase的balance(預設是第一個帳戶，也就是accounts[0])
 contract.balanceOf(web3.eth.coinbase)
 
 // accounts[1]的balance
@@ -97,7 +97,7 @@ contract.balanceOf(web3.eth.accounts[1])
 // 從合約地址轉帳120個代幣給accounts[1]
 contract.transfer(web3.eth.accounts[1], 120)
 
-// 再次確認合約地址的balance
+// 再次確認coinbase的balance
 contract.balanceOf(web3.eth.coinbase)
 
 // 再次確認accounts[1]的balance
